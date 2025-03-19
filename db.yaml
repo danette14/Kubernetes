@@ -19,7 +19,7 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "curl https://raw.githubusercontent.com/danette14/moniDBase/refs/heads/main/init_db.sql | psql -U myuser -d storedb"]
+                command: ["/bin/sh", "-c", "apt -y update && apt -y install curl && curl https://raw.githubusercontent.com/danette14/moniDBase/refs/heads/main/init_db.sql | psql -U myuser -d storedb"]
           env:
             - name: POSTGRES_USER
               value: "myuser"
