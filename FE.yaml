@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: domain-monitor-frontend
-          image: ilyashev1/moniappfront:latest
+          image: danette14/moniappfront:latest
           ports:
             - containerPort: 8080
               name: frontend
@@ -27,7 +27,7 @@ spec:
             - name: BACKEND_PORT
               value: "8081"
             - name: BACKEND_URL
-              value: "backend"
+              value: "http://backend:8081"
           resources:
             requests:
               memory: "64Mi"
@@ -44,7 +44,9 @@ metadata:
 spec:
   selector:
     app: frontend
+  type: NodePort
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+      nodePort: 30080
