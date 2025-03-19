@@ -19,7 +19,7 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "curl https://raw.githubusercontent.com/danette14/moniappbackDB/DataBase/schema.sql | psql -U myuser -d storedb"]
+                command: ["/bin/sh", "-c", "curl https://raw.githubusercontent.com/danette14/moniDBase/refs/heads/main/init_db.sql | psql -U myuser -d storedb"]
           env:
             - name: POSTGRES_USER
               value: "myuser"
@@ -35,17 +35,5 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgres-storage
-            - mountPath: /docker-entrypoint-initdb.d
-              name: init-script
-      volumes:
-        - name: init-script
-          emptyDir: {}
-  volumeClaimTemplates:
-    - metadata:
-        name: postgres-storage
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
+            
+      
