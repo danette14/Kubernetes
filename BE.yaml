@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: Backend
+  name: backend
 spec:
-  serviceName: Backend
+  serviceName: backend
   replicas: 1
   selector:
     matchLabels:
-      app: Backend
+      app: backend
   template:
     metadata:
       labels:
-        app: Backend
+        app: backend
     spec:
       containers:
         - name: domain-monitor-backend
-          image: ilyashev1/moniappback:latest
+          image: danette14/moniappbackdb:latest
           ports:
             - containerPort: 8081
               name: backend
@@ -31,7 +31,7 @@ spec:
             - name: DB_PASSWORD
               value: "mypassword"
             - name: CORS_ALLOWED_ORIGINS
-              value: "Frontend"
+              value: "frontend"
           resources:
             requests:
               memory: "64Mi"
@@ -40,6 +40,18 @@ spec:
               memory: "128Mi"
               cpu: "500m"
             
+---
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
           
           
